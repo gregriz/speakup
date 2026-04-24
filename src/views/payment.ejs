@@ -1,0 +1,18 @@
+<!doctype html><html><head><meta charset='utf-8'/><meta name='viewport' content='width=device-width,initial-scale=1'/><title>Payment Instructions</title><link rel='stylesheet' href='/styles.css'/></head><body>
+<main class='container'>
+<h2>Payment Instructions</h2>
+<div class='card'>
+<p><b>IBAN:</b> <%= settings.iban %></p>
+<p><b>Account name:</b> <%= settings.account_name %></p>
+<p><b>Amount:</b> <%= currency.format(registration.total_amount) %></p>
+<p><b>Reference:</b> MUNPARTY + <%= registration.full_name.toUpperCase() %></p>
+<p>Please transfer the amount and then upload proof of payment below. Your ticket will only be issued after verification.</p>
+</div>
+<% if (error) { %><p class='error'><%= error %></p><% } %>
+<form class='card form' method='post' enctype='multipart/form-data' action='/payment/<%= registration.id %>/upload'>
+<input type='file' name='proof_file' accept='.pdf,image/*' required/>
+<small>Accepted: image or PDF, max 5MB.</small>
+<button class='btn' type='submit'>I have completed the payment</button>
+</form>
+</main>
+</body></html>
