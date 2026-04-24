@@ -1,0 +1,28 @@
+<!doctype html><html><head><meta charset='utf-8'/><meta name='viewport' content='width=device-width,initial-scale=1'/><title>Admin</title><link rel='stylesheet' href='/styles.css'/></head><body>
+<main class='container'>
+<div class='row'><h2>Admin Dashboard</h2><form method='post' action='/admin/logout'><button class='btn ghost'>Logout</button></form></div>
+<div class='row'>
+<a class='btn ghost' href='/admin/settings'>Settings</a>
+<a class='btn ghost' href='/admin/tickets'>Tickets</a>
+<a class='btn ghost' href='/check-in'>Check-in</a>
+</div>
+<div class='row'>Filter:
+<a href='/admin'>All</a> |
+<a href='/admin?status=registered'>registered</a> |
+<a href='/admin?status=proof_uploaded'>proof_uploaded</a> |
+<a href='/admin?status=verified'>verified</a> |
+<a href='/admin?status=rejected'>rejected</a>
+</div>
+<div class='table-wrap'><table><thead><tr><th>Name</th><th>Email</th><th>Phone</th><th>Qty</th><th>Amount</th><th>Status</th><th>Created</th><th>Proof</th><th>Action</th></tr></thead><tbody>
+<% registrations.forEach((r)=> { %>
+<tr><td><%= r.full_name %></td><td><%= r.email %></td><td><%= r.phone || '-' %></td><td><%= r.quantity %></td><td><%= currency.format(r.total_amount) %></td><td><span class='tag'><%= r.status %></span></td><td><%= r.created_at %></td>
+<td><% if (proofMap[r.id]) { %><a href='<%= proofMap[r.id].file_url %>' target='_blank'>View</a><% } else { %>-<% } %></td>
+<td>
+<% if (r.status === 'proof_uploaded') { %>
+<form method='post' action='/admin/registration/<%= r.id %>/approve' style='display:inline'><button class='btn xs'>Approve</button></form>
+<form method='post' action='/admin/registration/<%= r.id %>/reject' style='display:inline'><button class='btn xs danger'>Reject</button></form>
+<% } else { %>-<% } %>
+</td></tr>
+<% }) %></tbody></table></div>
+</main>
+</body></html>

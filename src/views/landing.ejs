@@ -1,0 +1,13 @@
+<!doctype html><html><head><meta charset='utf-8'/><meta name='viewport' content='width=device-width,initial-scale=1'/><title><%= settings.event_name %></title><link rel='stylesheet' href='/styles.css'/></head><body>
+<main class='container hero'>
+  <h1><%= settings.event_name %></h1>
+  <p class='muted'><%= settings.event_description %></p>
+  <div class='card grid2'>
+    <p><b>Date:</b> <%= settings.event_date %></p><p><b>Time:</b> <%= settings.event_time %></p>
+    <p><b>Location:</b> <%= settings.event_location %></p><p><b>Price:</b> €<%= settings.price_per_ticket %> / ticket</p>
+  </div>
+  <a class='btn' href='/register'>Get your ticket</a>
+  <section class='org'>Organized by <b>MUN Maastricht</b></section>
+</main>
+<footer>Privacy notice: Your personal data is used only for event registration, payment verification, and ticketing.</footer>
+</body></html>
